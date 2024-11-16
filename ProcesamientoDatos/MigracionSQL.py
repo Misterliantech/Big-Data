@@ -1,13 +1,11 @@
 import pyodbc
 import pandas as pd
 
-# Datos de conexión
-server = 'localhost'  # por ejemplo, 'localhost' o '192.168.1.100'
+server = 'localhost'  
 database = 'Taxis'
 username = 'Quintero'
 password = 'Clave123'
 
-# Conexión a la base de datos SQL Server
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};'
                       f'SERVER={server};'
                       f'DATABASE={database};'
@@ -16,7 +14,6 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};'
                       'Trusted_Connection=yes;')
 cursor = conn.cursor()
 
-# Cargar los archivos Excel en DataFrames de Pandas
 usuarios_df = pd.read_excel('C:\\Users\\Quintero Pinto\\Documents\\Datos\\Proyectos de Programacion\\Big-Data\\ProcesamientoDatos\\datos\\usuarios.xlsx')
 conductores_df = pd.read_excel('C:\\Users\\Quintero Pinto\\Documents\\Datos\\Proyectos de Programacion\\Big-Data\\ProcesamientoDatos\\datos\\conductores.xlsx')
 viajes_df = pd.read_excel('C:\\Users\\Quintero Pinto\\Documents\\Datos\\Proyectos de Programacion\\Big-Data\\ProcesamientoDatos\\datos\\viajes.xlsx')
@@ -53,7 +50,7 @@ cursor.execute('''
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='viajes' AND xtype='U')
 BEGIN
     CREATE TABLE viajes (
-        viaje_id INT PRIMARY KEY,
+        viaje_id NVARCHAR(255) PRIMARY KEY,
         usuario_id INT,
         conductor_id INT,
         origen NVARCHAR(255),
